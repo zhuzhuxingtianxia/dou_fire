@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart';
 import 'package:dio/dio.dart';
 import 'package:dou_fire/factory.dart';
@@ -11,16 +12,41 @@ import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
 class DeletePostAction {
-  DeletePostAction();
+  final PostEntity post;
+  DeletePostAction({required this.post});
 }
 
-class PostsPublishedAction {}
+class PostsPublishedAction {
+  final List<PostEntity> posts;
+  final int userId;
+  final int? beforeId;
+  final int? afterId;
+  final bool refresh;
+
+  PostsPublishedAction({
+    required this.posts,
+    required this.userId,
+    this.beforeId,
+    this.afterId,
+    this.refresh = false,
+  });
+}
 
 class PostsLikedAction {}
 
-class LikePostAction {}
+class LikePostAction {
+  final int userId;
+  final int postId;
 
-class UnLikePostAction {}
+  LikePostAction({this.userId = 0, this.postId = 0});
+}
+
+class UnLikePostAction {
+  final int userId;
+  final int postId;
+
+  UnLikePostAction({required this.userId, required this.postId});
+}
 
 class PostsFollowingAction {
   final List<PostEntity> posts;
@@ -96,8 +122,87 @@ ThunkAction<AppState> deletePostAction({
       );
 
       if (response.code == ApiResponse.codeOk) {
+        store.dispatch(DeletePostAction(post: post));
         if (onSucceed != null) onSucceed();
       } else {
         if (onFailed != null) onFailed(NoticeEntity(message: response.message));
+      }
+    };
+
+ThunkAction<AppState> postsPublishedAction({
+  required int userId,
+  int? limit,
+  int? beforeId,
+  int? afterId,
+  bool refresh = false,
+  void Function(List<PostEntity>)? onSucceed,
+  void Function(NoticeEntity)? onFailed,
+}) =>
+    (Store<AppState> store) async {
+      final service = await Factory().getService();
+      final response = await service.post(
+        '/post/delete',
+        data: {},
+      );
+
+      if (response.code == ApiResponse.codeOk) {
+        store.dispatch(PostsPublishedAction());
+        if (onSucceed != null) onSucceed([]);
+      } else {
+        if (onFailed != null) onFailed(NoticeEntity(message: response.message));
+      }
+    };
+
+ThunkAction<AppState> likePostAction({
+  required int postId,
+  void Function()? onSucceed,
+  void Function(NoticeEntity)? onFailed,
+}) =>
+    (Store<AppState> store) async {
+      final service = await Factory().getService();
+      final response = await service.post(
+        '/post/like',
+        data: {'postId': postId},
+      );
+
+      if (response.code == ApiResponse.codeOk) {
+        store.dispatch(
+          LikePostAction(
+            userId: store.state.accountState.user.id,
+            postId: postId,
+          ),
+        );
+        if (onSucceed != null) onSucceed();
+      } else {
+        if (onFailed != null) {
+          onFailed(NoticeEntity(message: response.message));
+        }
+      }
+    };
+
+ThunkAction<AppState> unlikePostAction({
+  required int postId,
+  void Function()? onSucceed,
+  void Function(NoticeEntity)? onFailed,
+}) =>
+    (Store<AppState> store) async {
+      final service = await Factory().getService();
+      final response = await service.post(
+        '/post/unlike',
+        data: {'postId': postId},
+      );
+
+      if (response.code == ApiResponse.codeOk) {
+        store.dispatch(
+          UnLikePostAction(
+            userId: store.state.accountState.user.id,
+            postId: postId,
+          ),
+        );
+        if (onSucceed != null) onSucceed();
+      } else {
+        if (onFailed != null) {
+          onFailed(NoticeEntity(message: response.message));
+        }
       }
     };
