@@ -58,8 +58,15 @@ class Service {
       response.data = await mockApis[path]!(method, data);
     } else {
       try {
-        response = await _client.request(path,
-            data: data, options: _client.options as Options);
+        response = await _client.request(
+          path,
+          data: data,
+          options: _client.options as Options,
+          onSendProgress: (progress, total) {
+            // ignore: avoid_print
+            print("当前进度是 $progress 总进度是 $total");
+          },
+        );
       } catch (e) {
         return ApiResponse(
             code: ApiResponse.codeRequestError,

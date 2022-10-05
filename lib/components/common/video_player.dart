@@ -15,6 +15,7 @@ class VideoPlayerWithCover extends StatefulWidget {
   const VideoPlayerWithCover({super.key, required this.video});
 
   @override
+  // ignore: library_private_types_in_public_api
   _VideoPlayerWithCoverState createState() => _VideoPlayerWithCoverState();
 }
 
