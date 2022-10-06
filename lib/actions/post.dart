@@ -160,13 +160,32 @@ ThunkAction<AppState> postsPublishedAction({
     (Store<AppState> store) async {
       final service = await Factory().getService();
       final response = await service.post(
-        '/post/delete',
-        data: {},
+        '/post/published',
+        data: {
+          'userId': userId,
+          'limit': limit,
+          'beforeId': beforeId,
+          'afterId': afterId,
+        },
       );
 
       if (response.code == ApiResponse.codeOk) {
-        store.dispatch(PostsPublishedAction());
-        if (onSucceed != null) onSucceed([]);
+        final users = (response.data?['posts'] as List<dynamic>)
+            .map<UserEntity>((v) => UserEntity.fromJson(v['creator']))
+            .toList();
+        store.dispatch(UserInfosAction(users: users));
+
+        final posts = (response.data?['posts'] as List<dynamic>)
+            .map<PostEntity>((v) => PostEntity.fromJson(v))
+            .toList();
+        store.dispatch(PostsPublishedAction(
+          posts: posts,
+          userId: userId,
+          beforeId: beforeId,
+          afterId: afterId,
+          refresh: refresh,
+        ));
+        if (onSucceed != null) onSucceed(posts);
       } else {
         if (onFailed != null) onFailed(NoticeEntity(message: response.message));
       }

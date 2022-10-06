@@ -36,18 +36,45 @@ UserState _userInfos(UserState state, UserInfosAction action) {
 
 UserState _usersFollowing(UserState state, UsersFollowingAction action) {
   var userId = action.userId.toString();
+
   var users = Map<String, UserEntity>.from(state.users);
   users.addAll(Map.fromIterable(
     action.users,
     key: (v) => (v as UserEntity).id.toString(),
     value: (v) => v,
   ));
+
+  var usersFollowing = Map<String, List<int>>.from(state.usersFollowing);
+  usersFollowing[userId] = usersFollowing[userId] ?? [];
+
+  final userIds = action.users.map<int>((v) => v.id).toList();
+  if (action.refresh) {
+    usersFollowing[userId] = userIds;
+  } else if (action.offset == null) {
+    usersFollowing[userId]?.insertAll(
+      0,
+      userIds.where((v) => !usersFollowing[userId]!.contains(v)),
+    );
+  } else {
+    usersFollowing[userId]?.addAll(userIds);
+  }
+
   return state.copyWith(
     users: users,
+    usersFollowing: usersFollowing,
   );
 }
 
 UserState _followers(UserState state, FollowersAction action) {
+  var userId = action.userId.toString();
+  var users = Map<String, UserEntity>.from(state.users);
+
+  users.addAll(Map.fromIterable(
+    action.users,
+    key: (v) => (v as UserEntity).id.toString(),
+    value: (v) => v,
+  ));
+
   return state.copyWith();
 }
 

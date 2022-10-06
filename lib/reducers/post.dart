@@ -38,7 +38,22 @@ PostState _postsPublished(PostState state, PostsPublishedAction action) {
     value: (v) => v,
   ));
 
-  return state.copyWith();
+  var postsPublished = Map<String, List<int>>.from(state.postsPublished);
+  postsPublished[userId] = postsPublished[userId] ?? [];
+
+  final postIds = action.posts.map<int>((v) => v.id).toList();
+  if (action.refresh) {
+    postsPublished[userId] = postIds;
+  } else if (action.afterId != null) {
+    postsPublished[userId]?.insertAll(0, postIds);
+  } else {
+    postsPublished[userId]?.addAll(postIds);
+  }
+
+  return state.copyWith(
+    posts: posts,
+    postsPublished: postsPublished,
+  );
 }
 
 PostState _postsLiked(PostState state, PostsLikedAction action) {
