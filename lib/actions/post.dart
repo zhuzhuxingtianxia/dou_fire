@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:dou_fire/actions/actions.dart';
+import 'package:dou_fire/models/entity/user.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart';
 import 'package:dio/dio.dart';
@@ -32,13 +34,30 @@ class PostsPublishedAction {
   });
 }
 
-class PostsLikedAction {}
+class PostsLikedAction {
+  final List<PostEntity> posts;
+  final int userId;
+  final int? beforeId;
+  final int? afterId;
+  final bool refresh;
+
+  PostsLikedAction({
+    required this.posts,
+    required this.userId,
+    this.beforeId,
+    this.afterId,
+    this.refresh = false,
+  });
+}
 
 class LikePostAction {
   final int userId;
   final int postId;
 
-  LikePostAction({this.userId = 0, this.postId = 0});
+  LikePostAction({
+    required this.userId,
+    required this.postId,
+  });
 }
 
 class UnLikePostAction {
@@ -50,14 +69,14 @@ class UnLikePostAction {
 
 class PostsFollowingAction {
   final List<PostEntity> posts;
-  final int beforeId;
-  final int afterId;
+  final int? beforeId;
+  final int? afterId;
   final bool refresh;
 
   PostsFollowingAction({
     required this.posts,
-    this.beforeId = 0,
-    this.afterId = 0,
+    this.beforeId,
+    this.afterId,
     this.refresh = false,
   });
 }
@@ -204,5 +223,94 @@ ThunkAction<AppState> unlikePostAction({
         if (onFailed != null) {
           onFailed(NoticeEntity(message: response.message));
         }
+      }
+    };
+
+ThunkAction<AppState> postsFollowingAcction({
+  int? limit,
+  int? beforeId,
+  int? afterId,
+  bool refresh = false,
+  void Function(List<PostEntity>)? onSucceed,
+  void Function(NoticeEntity)? onFailed,
+}) =>
+    (Store<AppState> store) async {
+      final service = await Factory().getService();
+      final response = await service.get(
+        '/post/following',
+        data: {
+          'limit': limit,
+          'beforeId': beforeId,
+          'afterId': afterId,
+        },
+      );
+
+      if (response.code == ApiResponse.codeOk) {
+        final users = (response.data!['posts'] as List<dynamic>)
+            .map<UserEntity>((v) => UserEntity.fromJson(v['creator']))
+            .toList();
+
+        store.dispatch(UserInfosAction(users: users));
+
+        final posts = (response.data!['posts'] as List<dynamic>)
+            .map<PostEntity>((v) => PostEntity.fromJson(v))
+            .toList();
+
+        store.dispatch(PostsFollowingAction(
+          posts: posts,
+          beforeId: beforeId,
+          afterId: afterId,
+          refresh: refresh,
+        ));
+
+        if (onSucceed != null) onSucceed(posts);
+      } else {
+        if (onFailed != null) onFailed(NoticeEntity(message: response.message));
+      }
+    };
+
+ThunkAction<AppState> postsLikedAction({
+  required int userId,
+  int? limit,
+  int? beforeId,
+  int? afterId,
+  bool refresh = false,
+  void Function(List<PostEntity>)? onSucceed,
+  void Function(NoticeEntity)? onFailed,
+}) =>
+    (Store<AppState> store) async {
+      final service = await Factory().getService();
+      final response = await service.get(
+        '/post/liked',
+        data: {
+          'userId': userId,
+          'limit': limit,
+          'beforeId': beforeId,
+          'afterId': afterId,
+        },
+      );
+
+      if (response.code == ApiResponse.codeOk) {
+        final users = (response.data!['posts'] as List<dynamic>)
+            .map<UserEntity>((v) => UserEntity.fromJson(v['creator']))
+            .toList();
+
+        store.dispatch(UserInfosAction(users: users));
+
+        final posts = (response.data!['posts'] as List<dynamic>)
+            .map<PostEntity>((v) => PostEntity.fromJson(v))
+            .toList();
+
+        store.dispatch(PostsLikedAction(
+          posts: posts,
+          userId: userId,
+          beforeId: beforeId,
+          afterId: afterId,
+          refresh: refresh,
+        ));
+
+        if (onSucceed != null) onSucceed(posts);
+      } else {
+        if (onFailed != null) onFailed(NoticeEntity(message: response.message));
       }
     };

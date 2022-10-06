@@ -1,4 +1,5 @@
 import 'package:redux/redux.dart';
+import 'dart:core';
 
 import '../actions/actions.dart';
 import '../models/models.dart';
@@ -41,7 +42,31 @@ PostState _postsPublished(PostState state, PostsPublishedAction action) {
 }
 
 PostState _postsLiked(PostState state, PostsLikedAction action) {
-  return state.copyWith();
+  var userId = action.userId.toString();
+
+  var posts = Map<String, PostEntity>.from(state.posts);
+  posts.addAll(Map.fromIterable(
+    action.posts,
+    key: (v) => (v as PostEntity).id.toString(),
+    value: (v) => v,
+  ));
+
+  var postsLiked = Map<String, List<int>>.from(state.postsLiked);
+  postsLiked[userId] = postsLiked[userId] ?? [];
+
+  final postIds = action.posts.map<int>((v) => v.id).toList();
+  if (action.refresh) {
+    postsLiked[userId] = postIds;
+  } else if (action.afterId != null) {
+    postsLiked[userId]?.insertAll(0, postIds);
+  } else {
+    postsLiked[userId]?.addAll(postIds);
+  }
+
+  return state.copyWith(
+    posts: posts,
+    postsLiked: postsLiked,
+  );
 }
 
 PostState _likePost(PostState state, LikePostAction action) {
@@ -87,5 +112,19 @@ PostState _postsFollowing(PostState state, PostsFollowingAction action) {
     key: (v) => (v as PostEntity).id.toString(),
     value: (v) => v,
   ));
-  return state.copyWith();
+
+  var postsFollowing = List<int>.from(state.postsFollowing);
+  final postIds = action.posts.map<int>((v) => v.id).toList();
+
+  if (action.refresh) {
+    postsFollowing = postIds;
+  } else if (action.afterId != null) {
+    postsFollowing.insertAll(0, postIds);
+  } else {
+    postsFollowing.addAll(postIds);
+  }
+  return state.copyWith(
+    posts: posts,
+    postsFollowing: postsFollowing,
+  );
 }
