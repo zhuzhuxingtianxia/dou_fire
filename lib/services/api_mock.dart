@@ -7,7 +7,7 @@ final _user1 = {
   'username': 'jaggerwang',
   'intro': 'Coding for free',
   'avatar':
-      'https://jw-asset.oss-cn-shanghai.aliyuncs.com/ccourse/flutter-in-practice/image/avatar-1.jpg',
+      'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/avatar-1.jpg',
   'mobile': '18666668888',
   'email': 'jaggerwang@doufire.app',
   'postCount': 100,

@@ -21,10 +21,10 @@ class Factory {
   factory Factory() => _singleton;
 
   final Map<String, Logger> _loggers = {};
-  late Persistor<AppState> _persistor;
-  late Store<AppState> _store;
-  late PersistCookieJar _cookieJar;
-  late Service _service;
+  Persistor<AppState>? _persistor;
+  Store<AppState>? _store;
+  PersistCookieJar? _cookieJar;
+  Service? _service;
 
   Logger getLogger(String name) {
     if (_loggers[name] == null) {
@@ -68,7 +68,7 @@ class Factory {
       );
       */
     }
-    return _persistor;
+    return _persistor!;
   }
 
   Store<AppState> getStore() {
@@ -85,7 +85,7 @@ class Factory {
             initialState: AppState(), middleware: wms);
       }
     }
-    return _store;
+    return _store!;
   }
 
   Future<PersistCookieJar> getCookieJar() async {
@@ -96,7 +96,7 @@ class Factory {
           PersistCookieJar(storage: FileStorage('${docDir.path}/cookies'));
     }
 
-    return _cookieJar;
+    return _cookieJar!;
   }
 
   Future<Service> getService() async {
@@ -106,6 +106,6 @@ class Factory {
       _service = Service(cookieJar);
     }
 
-    return _service;
+    return _service!;
   }
 }

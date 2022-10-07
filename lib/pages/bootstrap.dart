@@ -34,7 +34,8 @@ class _BodyState extends State<_Body> {
   }
 
   void _bootstrap() {
-    StoreProvider.of<AppState>(context).dispatch(accountInfoAction(
+    StoreProvider.of<AppState>(context, listen: false)
+        .dispatch(accountInfoAction(
       onSucceed: (user) {
         //  pushReplacementNamed 替换界面
         Navigator.of(context)

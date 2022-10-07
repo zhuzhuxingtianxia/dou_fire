@@ -72,6 +72,7 @@ class PostEntity {
           createdAt: createdAt);
 }
 
+@JsonSerializable()
 class PostImage {
   final ImageEntity original;
   final ImageEntity thumb;
@@ -81,13 +82,8 @@ class PostImage {
     this.thumb = const ImageEntity(),
   });
 
-  factory PostImage.fromJson(Map<String, dynamic> json) {
-    return PostImage(
-        original: json['original'] as ImageEntity,
-        thumb: json['thumb'] as ImageEntity);
-  }
+  factory PostImage.fromJson(Map<String, dynamic> json) =>
+      _$PostImageFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {'original': '', 'thumb': ''};
-  }
+  Map<String, dynamic> toJson() => _$PostImageToJson(this);
 }

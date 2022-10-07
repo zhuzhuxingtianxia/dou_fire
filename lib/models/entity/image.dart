@@ -17,7 +17,7 @@ class ImageEntity {
         url: json['url'] as String,
         width: json['width'] as int,
         height: json['height'] as int,
-        size: json['size'] as int);
+        size: json['size'] == null ? 0 : json['size'] as int);
   }
 
   Map<String, dynamic> toJson() {

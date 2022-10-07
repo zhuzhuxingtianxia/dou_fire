@@ -45,3 +45,17 @@ const _$PostTypeEnumMap = {
   PostType.image: 'image',
   PostType.video: 'video',
 };
+
+PostImage _$PostImageFromJson(Map<String, dynamic> json) => PostImage(
+      original: json['original'] == null
+          ? const ImageEntity()
+          : ImageEntity.fromJson(json['original'] as Map<String, dynamic>),
+      thumb: json['thumb'] == null
+          ? const ImageEntity()
+          : ImageEntity.fromJson(json['thumb'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$PostImageToJson(PostImage instance) => <String, dynamic>{
+      'original': instance.original,
+      'thumb': instance.thumb,
+    };

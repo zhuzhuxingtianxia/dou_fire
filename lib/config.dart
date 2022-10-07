@@ -11,5 +11,5 @@ class Config {
   static var loggerLevel = Level.INFO;
   static var isLogAction = false;
   static var isLogApi = false;
-  static var isMockApi = false;
+  static var isMockApi = true;
 }

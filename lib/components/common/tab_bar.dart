@@ -6,17 +6,17 @@ import '../../pages/pages.dart';
 class DFTabBar extends StatelessWidget {
   static final tabs = [
     {
-      'title': const Text('首页'),
+      'title': '首页',
       'icon': const Icon(Icons.home),
       'builder': (BuildContext context) => const HomePage()
     },
     {
-      'title': const Text('发布'),
+      'title': '发布',
       'icon': const Icon(Icons.add),
       'builder': (BuildContext context) => const PublishPage()
     },
     {
-      'title': const Text('我'),
+      'title': '我',
       'icon': const Icon(Icons.account_circle),
       'builder': (BuildContext context) => const MePage()
     },
