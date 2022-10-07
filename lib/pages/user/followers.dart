@@ -37,11 +37,11 @@ class FollowersPage extends StatelessWidget {
 
 class _ViewModel {
   final int userId;
-  final List<UserEntity> usersFollowing;
+  final List<UserEntity> followers;
 
   _ViewModel({
     required this.userId,
-    required this.usersFollowing,
+    required this.followers,
   });
 }
 
@@ -69,7 +69,7 @@ class _BodyState extends State<_Body> {
     super.initState();
 
     _scrollController.addListener(_scrollListener);
-    _loadUsersFollowing(recent: true, more: false);
+    _loadFollowers(recent: true, more: false);
   }
 
   @override
@@ -82,11 +82,11 @@ class _BodyState extends State<_Body> {
   void _scrollListener() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-      _loadUsersFollowing();
+      _loadFollowers();
     }
   }
 
-  void _loadUsersFollowing({
+  void _loadFollowers({
     bool recent = false,
     bool more = true,
     bool refresh = false,
@@ -105,10 +105,10 @@ class _BodyState extends State<_Body> {
 
     int? offset;
     if (more) {
-      offset = widget.vm.usersFollowing.length;
+      offset = widget.vm.followers.length;
     }
 
-    widget.store.dispatch(usersFollowingAction(
+    widget.store.dispatch(followersAction(
       userId: widget.vm.userId,
       offset: offset,
       refresh: refresh,
@@ -136,7 +136,7 @@ class _BodyState extends State<_Body> {
 
   Future _refresh() {
     final completer = Completer();
-    _loadUsersFollowing(
+    _loadFollowers(
       more: false,
       refresh: true,
       completer: completer,
@@ -155,13 +155,13 @@ class _BodyState extends State<_Body> {
             controller: _scrollController,
             physics: const AlwaysScrollableScrollPhysics(),
             itemBuilder: (context, index) => UserTile(
-              key: Key(widget.vm.usersFollowing[index].id.toString()),
-              user: widget.vm.usersFollowing[index],
+              key: Key(widget.vm.followers[index].id.toString()),
+              user: widget.vm.followers[index],
             ),
             separatorBuilder: (context, index) => const Divider(
               height: 1,
             ),
-            itemCount: widget.vm.usersFollowing.length,
+            itemCount: widget.vm.followers.length,
           ),
         ),
         Visibility(
