@@ -8,7 +8,7 @@ final userReducer = combineReducers<UserState>([
   TypedReducer<UserState, UserInfosAction>(_userInfos),
   TypedReducer<UserState, UsersFollowingAction>(_usersFollowing),
   TypedReducer<UserState, FollowersAction>(_followers),
-  TypedReducer<UserState, FollowerUserAction>(_followUser),
+  TypedReducer<UserState, FollowUserAction>(_followUser),
   TypedReducer<UserState, UnFollowUserAction>(_unfollowUser),
 ]);
 
@@ -75,13 +75,59 @@ UserState _followers(UserState state, FollowersAction action) {
     value: (v) => v,
   ));
 
-  return state.copyWith();
+  var followers = Map<String, List<int>>.from(state.followers);
+  followers[userId] = followers[userId] ?? [];
+
+  final userIds = action.users.map<int>((v) => v.id).toList();
+  if (action.refresh) {
+    followers[userId] = userIds;
+  } else if (action.offset == null) {
+    followers[userId]?.insertAll(
+      0,
+      userIds.where((v) => !followers[userId]!.contains(v)),
+    );
+  } else {
+    followers[userId]?.addAll(userIds);
+  }
+
+  return state.copyWith(
+    users: users,
+    usersFollowing: followers,
+  );
 }
 
-UserState _followUser(UserState state, FollowerUserAction action) {
-  return state.copyWith();
+UserState _followUser(UserState state, FollowUserAction action) {
+  var userId = action.userId.toString();
+  var followingId = action.followingId.toString();
+
+  var users = Map<String, UserEntity>.from(state.users);
+  users[followingId] = users[followingId]!.copyWith(isFollowing: true);
+
+  var usersFollowing = Map<String, List<int>>.from(state.usersFollowing);
+  usersFollowing[userId] = usersFollowing[userId] ?? [];
+  usersFollowing[userId]!
+    ..remove(action.followingId)
+    ..insert(0, action.followingId);
+
+  return state.copyWith(
+    users: users,
+    usersFollowing: usersFollowing,
+  );
 }
 
 UserState _unfollowUser(UserState state, UnFollowUserAction action) {
-  return state.copyWith();
+  var userId = action.userId.toString();
+  var followingId = action.followingId.toString();
+
+  var users = Map<String, UserEntity>.from(state.users);
+  users[followingId] = users[followingId]!.copyWith(isFollowing: false);
+
+  var usersFollowing = Map<String, List<int>>.from(state.usersFollowing);
+  usersFollowing[userId] = usersFollowing[userId] ?? [];
+  usersFollowing[userId]!.remove(action.followingId);
+
+  return state.copyWith(
+    users: users,
+    usersFollowing: usersFollowing,
+  );
 }

@@ -1,3 +1,4 @@
+import 'package:dou_fire/actions/actions.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
@@ -32,16 +33,37 @@ class UsersFollowingAction {
 }
 
 class FollowersAction {
-  final int userId;
   final List<UserEntity> users;
+  final int userId;
+  final int? offset;
+  final bool refresh;
+
+  FollowersAction({
+    required this.users,
+    required this.userId,
+    this.offset,
+    this.refresh = false,
+  });
 }
 
-class FollowerUserAction {
+class FollowUserAction {
   final int userId;
+  final int followingId;
+
+  FollowUserAction({
+    required this.userId,
+    required this.followingId,
+  });
 }
 
 class UnFollowUserAction {
   final int userId;
+  final int followingId;
+
+  UnFollowUserAction({
+    required this.userId,
+    required this.followingId,
+  });
 }
 
 ThunkAction<AppState> userInfoAction({
@@ -126,27 +148,83 @@ ThunkAction<AppState> usersFollowingAction({
 ThunkAction<AppState> followersAction({
   required int userId,
   int? limit,
+  int? offset,
+  bool refresh = false,
+  void Function(List<UserEntity>)? onSucceed,
+  void Function(NoticeEntity)? onFailed,
 }) =>
     (Store<AppState> store) async {
       final service = await Factory().getService();
       final response = await service.post(
-        '/user/',
-        data: {},
+        '/user/followers',
+        data: {
+          'userId': userId,
+          'limit': limit,
+          'offset': offset,
+        },
       );
+
+      if (response.code == ApiResponse.codeOk) {
+        final users = (response.data?['users'] as List<dynamic>)
+            .map((value) => UserEntity.fromJson(value))
+            .toList();
+
+        store.dispatch(FollowersAction(
+          users: users,
+          userId: userId,
+          offset: offset,
+          refresh: refresh,
+        ));
+        if (onSucceed != null) onSucceed(users);
+      } else {
+        if (onFailed != null) onFailed(NoticeEntity(message: response.message));
+      }
     };
 
-ThunkAction<AppState> followUserAction() => (Store<AppState> store) async {
+ThunkAction<AppState> followUserAction({
+  required int followingId,
+  void Function()? onSucceed,
+  void Function(NoticeEntity)? onFailed,
+}) =>
+    (Store<AppState> store) async {
       final service = await Factory().getService();
       final response = await service.post(
-        '/user/',
-        data: {},
+        '/user/follow',
+        data: {'userId': followingId},
       );
+
+      if (response.code == ApiResponse.codeOk) {
+        store.dispatch(FollowUserAction(
+          userId: store.state.accountState.user.id,
+          followingId: followingId,
+        ));
+
+        if (onSucceed != null) onSucceed();
+      } else {
+        if (onFailed != null) onFailed(NoticeEntity(message: response.message));
+      }
     };
 
-ThunkAction<AppState> unfollowUserAction() => (Store<AppState> store) async {
+ThunkAction<AppState> unfollowUserAction({
+  required int followingId,
+  void Function()? onSucceed,
+  void Function(NoticeEntity)? onFailed,
+}) =>
+    (Store<AppState> store) async {
       final service = await Factory().getService();
       final response = await service.post(
-        '/user/',
-        data: {},
+        '/user/unfollow',
+        data: {'userId': followingId},
       );
+
+      if (response.code == ApiResponse.codeOk) {
+        store.dispatch(UnFollowUserAction(
+          userId: store.state.accountState.user.id,
+          followingId: followingId,
+        ));
+
+        if (onSucceed != null) onSucceed();
+      } else {
+        if (onFailed != null) onFailed(NoticeEntity(message: response.message));
+      }
     };

@@ -305,7 +305,24 @@ class _BodyState extends State<_Body> {
       _isLoading = true;
     });
 
-    // widget.store.dispatch(followUserAction());
+    widget.store.dispatch(followUserAction(
+      followingId: widget.vm.user.id,
+      onSucceed: () {
+        setState(() {
+          _isLoading = false;
+        });
+      },
+      onFailed: (notice) {
+        setState(() {
+          _isLoading = false;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(notice.message),
+          duration: notice.duration,
+        ));
+      },
+    ));
   }
 
   //取消关注
@@ -314,7 +331,24 @@ class _BodyState extends State<_Body> {
       _isLoading = true;
     });
 
-    // widget.store.dispatch(unfollowUserAction());
+    widget.store.dispatch(unfollowUserAction(
+      followingId: widget.vm.user.id,
+      onSucceed: () {
+        setState(() {
+          _isLoading = false;
+        });
+      },
+      onFailed: (notice) {
+        setState(() {
+          _isLoading = false;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(notice.message),
+          duration: notice.duration,
+        ));
+      },
+    ));
   }
 
   void _followOrUnfollowUser() {
