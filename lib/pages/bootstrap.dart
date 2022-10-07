@@ -61,10 +61,11 @@ class _BodyState extends State<_Body> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const Spacer(flex: 5),
+          // 安百分比缩放的盒子
           const FractionallySizedBox(
             widthFactor: 0.3,
             child: Image(
-              image: AssetImage('assets/wg-icon-no-bg.png'),
+              image: AssetImage('assets/gzh.png'),
             ),
           ),
           const Spacer(),

@@ -67,13 +67,13 @@ final _imagePost = {
     {
       'original': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-1.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-1.jpg',
         'width': 1280,
         'height': 1393,
       },
       'thumb': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-1-thumb.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-1-thumb.jpg',
         'width': 540,
         'height': 588,
       },
@@ -81,13 +81,13 @@ final _imagePost = {
     {
       'original': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-2.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-2.jpg',
         'width': 1280,
         'height': 720,
       },
       'thumb': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-2-thumb.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-2-thumb.jpg',
         'width': 540,
         'height': 360,
       },
@@ -95,13 +95,13 @@ final _imagePost = {
     {
       'original': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-3.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-3.jpg',
         'width': 1280,
         'height': 720,
       },
       'thumb': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-3-thumb.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-3-thumb.jpg',
         'width': 540,
         'height': 360,
       },
@@ -109,13 +109,13 @@ final _imagePost = {
     {
       'original': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-4.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-4.jpg',
         'width': 1280,
         'height': 608,
       },
       'thumb': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-4-thumb.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-4-thumb.jpg',
         'width': 540,
         'height': 304,
       },
@@ -123,13 +123,13 @@ final _imagePost = {
     {
       'original': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-5.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-5.jpg',
         'width': 1280,
         'height': 720,
       },
       'thumb': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-5-thumb.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-5-thumb.jpg',
         'width': 540,
         'height': 360,
       },
@@ -137,13 +137,13 @@ final _imagePost = {
     {
       'original': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-6.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-6.jpg',
         'width': 1280,
         'height': 720,
       },
       'thumb': {
         'url':
-            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-6-thumb.png',
+            'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/image/post-image-6-thumb.jpg',
         'width': 540,
         'height': 360,
       },
@@ -165,7 +165,7 @@ final _videoPost = {
     'url':
         'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/video/post-video-1.mp4',
     'cover':
-        'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/video/post-video-1-cover.png',
+        'https://jw-asset.oss-cn-shanghai.aliyuncs.com/course/flutter-in-practice/video/post-video-1-cover.jpg',
     'width': 640,
     'height': 360,
     'duration': 14
