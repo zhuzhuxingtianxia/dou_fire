@@ -49,6 +49,7 @@ class _UserPageState extends State<UserPage> {
         body: DefaultTabController(
           length: _tabs.length,
           child: _Body(
+            key: _bodyKey,
             store: StoreProvider.of<AppState>(context),
             vm: vm,
             tabs: _tabs,
@@ -79,6 +80,7 @@ class _Body extends StatefulWidget {
   final List<String> tabs;
 
   const _Body({
+    super.key,
     required this.store,
     required this.vm,
     required this.tabs,

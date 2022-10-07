@@ -198,8 +198,8 @@ class _BodyState extends State<_Body> {
     }
 
     if ((widget.vm.type == PostType.text && widget.vm.text == '') ||
-        (widget.vm.type == PostType.image && widget.vm.images.length == 0) ||
-        (widget.vm.type == PostType.video && widget.vm.videos.length == 0)) {
+        (widget.vm.type == PostType.image && widget.vm.images.isEmpty) ||
+        (widget.vm.type == PostType.video && widget.vm.videos.isEmpty)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('内容不能为空'),

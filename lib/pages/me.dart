@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
+import '../components/components.dart';
 import '../../models/models.dart';
 import '../../actions/actions.dart';
 import '../theme.dart';
@@ -25,6 +26,9 @@ class MePage extends StatelessWidget {
         body: _Me(
           store: StoreProvider.of<AppState>(context),
           vm: vm,
+        ),
+        bottomNavigationBar: const DFTabBar(
+          tabIndex: 2,
         ),
       ),
     );
@@ -212,7 +216,7 @@ class _MeState extends State<_Me> {
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                  '${Config.packageInfo.appName} v${Config.packageInfo.version} ${Config.domain}'),
+                  '${Config.packageInfo.appName} v${Config.packageInfo.version} @${Config.domain}'),
             ),
           ],
         ),
