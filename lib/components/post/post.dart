@@ -25,6 +25,14 @@ class Post extends StatefulWidget {
 class _PostState extends State<Post> {
   var _isLoading = false;
 
+  @override
+  void initState() {
+    super.initState();
+    if (widget.post.type == PostType.video) {
+      print('打印看下结果： ${widget.post.video}');
+    }
+  }
+
   void _likePost(BuildContext context, _ViewModel vm) {
     setState(() {
       _isLoading = true;
@@ -244,7 +252,6 @@ class _PostState extends State<Post> {
   }
 
   Widget _buildVideo(VideoEntity? video) {
-    debugger(when: video != null);
     return VideoPlayerWithCover(video: video!);
   }
 

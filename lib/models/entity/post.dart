@@ -65,7 +65,7 @@ class PostEntity {
           type: type ?? this.type,
           text: text ?? this.text,
           images: images ?? this.images,
-          video: video,
+          video: video ?? this.video,
           likeCount: likeCount ?? this.likeCount,
           isLiked: isLiked ?? this.isLiked,
           creatorId: creatorId ?? this.creatorId,

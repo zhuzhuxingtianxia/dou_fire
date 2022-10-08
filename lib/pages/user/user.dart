@@ -24,6 +24,17 @@ class _UserPageState extends State<UserPage> {
   static final _bodyKey = GlobalKey<_BodyState>();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    print('user_page 🚶‍♀️🚶‍♀️🚶‍♀️🚶‍♀️🚶‍♀️🚶‍♀️🚶‍♀️🚶‍♀️🚶‍♀️🚶‍♀️');
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel(
@@ -49,7 +60,7 @@ class _UserPageState extends State<UserPage> {
         body: DefaultTabController(
           length: _tabs.length,
           child: _Body(
-            key: _bodyKey,
+            // key: _bodyKey,
             store: StoreProvider.of<AppState>(context),
             vm: vm,
             tabs: _tabs,
