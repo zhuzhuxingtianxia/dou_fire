@@ -53,7 +53,7 @@ final _textPost = {
   'text': '都是一些文本展示信息了无所谓什么的',
   'images': null,
   'video': null,
-  'likeCount': 0,
+  'likeCount': 80,
   'isLiked': false,
   'creatorId': 1,
   'createdAt': '2019-01-15 12:57:15',
@@ -170,7 +170,7 @@ final _videoPost = {
     'height': 360,
     'duration': 14
   },
-  'likeCount': 0,
+  'likeCount': 10,
   'isLiked': false,
   'creatorId': 3,
   'createdAt': '2018-12-15 12:57:15',

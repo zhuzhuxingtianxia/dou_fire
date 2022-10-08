@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dou_fire/theme.dart';
 import 'package:dou_fire/utils/number.dart';
 import 'package:flutter/material.dart';
@@ -241,8 +243,9 @@ class _PostState extends State<Post> {
     });
   }
 
-  Widget _buildVideo() {
-    return VideoPlayerWithCover(video: widget.post.video!);
+  Widget _buildVideo(VideoEntity? video) {
+    debugger(when: video != null);
+    return VideoPlayerWithCover(video: video!);
   }
 
   Widget _buildBody(BuildContext context) {
@@ -264,7 +267,7 @@ class _PostState extends State<Post> {
         return Column(
           children: <Widget>[
             _buildText(widget.post.text),
-            _buildVideo(),
+            _buildVideo(widget.post.video),
           ],
         );
       default:

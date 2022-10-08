@@ -92,7 +92,7 @@ UserState _followers(UserState state, FollowersAction action) {
 
   return state.copyWith(
     users: users,
-    usersFollowing: followers,
+    followers: followers,
   );
 }
 

@@ -484,10 +484,12 @@ class _BodyState extends State<_Body> {
                   childCount: widget.vm.postsPublished.length,
                 ),
               ),
-              Visibility(
-                visible: _isLoadingPostsPublished,
-                child: const Center(
-                  child: CircularProgressIndicator(),
+              SliverToBoxAdapter(
+                child: Visibility(
+                  visible: _isLoadingPostsPublished,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               ),
             ],
@@ -529,10 +531,12 @@ class _BodyState extends State<_Body> {
                   childCount: widget.vm.postsLiked.length,
                 ),
               ),
-              Visibility(
-                visible: _isLoadingPostsLiked,
-                child: const Center(
-                  child: CircularProgressIndicator(),
+              SliverToBoxAdapter(
+                child: Visibility(
+                  visible: _isLoadingPostsLiked,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               ),
             ],
@@ -574,10 +578,12 @@ class _BodyState extends State<_Body> {
                   childCount: widget.vm.usersFollowing.length,
                 ),
               ),
-              Visibility(
-                visible: _isLoadingUsersFollowing,
-                child: const Center(
-                  child: CircularProgressIndicator(),
+              SliverToBoxAdapter(
+                child: Visibility(
+                  visible: _isLoadingUsersFollowing,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               ),
             ],

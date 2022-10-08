@@ -79,7 +79,7 @@ class VideoPlayerWithControlBar extends StatefulWidget {
   }) : assert(video != null || file != null);
 
   @override
-  _VideoPlayerWithControlBarState createState() {
+  State<StatefulWidget> createState() {
     return _VideoPlayerWithControlBarState();
   }
 }

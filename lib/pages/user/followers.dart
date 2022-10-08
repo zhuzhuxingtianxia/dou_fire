@@ -112,7 +112,7 @@ class _BodyState extends State<_Body> {
       userId: widget.vm.userId,
       offset: offset,
       refresh: refresh,
-      onSucceed: (posts) {
+      onSucceed: (users) {
         setState(() {
           _isLoading = false;
         });
