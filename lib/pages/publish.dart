@@ -113,6 +113,8 @@ class _BodyState extends State<_Body> {
   late TextEditingController _textEditingController;
   var _isSubmitting = false;
 
+  final ImagePicker _picker = ImagePicker();
+
   @override
   void initState() {
     super.initState();
@@ -137,6 +139,8 @@ class _BodyState extends State<_Body> {
   }
 
   Future _addFile() async {
+    // var source = ImageSource.gallery;
+
     var source = await showModalBottomSheet<ImageSource>(
       context: context,
       builder: (context) => Column(
@@ -159,14 +163,27 @@ class _BodyState extends State<_Body> {
     }
 
     if (widget.vm.type == PostType.image) {
-      var file = await ImagePicker.platform.pickImage(source: source);
-      if (file != null) {
+      setState(() {
+        _isSubmitting = true;
+      });
+      // var file = await _picker.pickImage(source: source);
+      var files = await _picker.pickMultiImage();
+      setState(() {
+        _isSubmitting = false;
+      });
+      if (files != null && files.isNotEmpty) {
         widget.store.dispatch(PublishAddImageAction(
-          image: file.path,
+          image: files.first.path,
         ));
       }
     } else if (widget.vm.type == PostType.video) {
-      var file = await ImagePicker.platform.pickVideo(source: source);
+      setState(() {
+        _isSubmitting = true;
+      });
+      var file = await _picker.pickVideo(source: source);
+      setState(() {
+        _isSubmitting = false;
+      });
       if (file != null) {
         widget.store.dispatch(PublishAddVideoAction(
           video: file.path,
