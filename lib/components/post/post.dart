@@ -29,7 +29,7 @@ class _PostState extends State<Post> {
   void initState() {
     super.initState();
     if (widget.post.type == PostType.video) {
-      print('打印看下结果： ${widget.post.video}');
+      print('打印看下结果： ${widget.post.video}:${widget.post.video?.cover}');
     }
   }
 
@@ -162,7 +162,9 @@ class _PostState extends State<Post> {
                     backgroundImage: vm.creator.avatar == ''
                         ? null
                         : CachedNetworkImageProvider(vm.creator.avatar),
-                    child: vm.creator.avatar == '' ? Icon(Icons.person) : null,
+                    child: vm.creator.avatar == ''
+                        ? const Icon(Icons.person)
+                        : null,
                   ),
                 ),
                 Flexible(

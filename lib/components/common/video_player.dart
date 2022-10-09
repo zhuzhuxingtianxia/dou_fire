@@ -308,7 +308,8 @@ class _VideoPlayerWithControlBarState extends State<VideoPlayerWithControlBar> {
               child: _buildControlBar(context),
             ),
             Visibility(
-              visible: _isInitialized,
+              visible:
+                  _isInitialized && _isPlaying == false && _isEnded == false,
               child: Container(
                 alignment: Alignment.center,
                 child: const CircularProgressIndicator(),
