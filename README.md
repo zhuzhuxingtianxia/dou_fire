@@ -6,6 +6,13 @@
 
 flutter3.3.3 dart2.18
 
+## 效果
+
+![home](./home.png)
+
+![me](./me.png)
+
+![profire](./profire.png)
 
 ## android构建问题
 ```
@@ -122,3 +129,10 @@ allprojects{
     }
 }
 ```
+
+## android报错
+```
+A problem occurred evaluating project ':app'.
+```
+.gradle的版本 与 android->build.gradle文件中的配置`classpath 'com.android.tools.build:gradle:7.4'`版本不一致
+
