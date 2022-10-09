@@ -8,11 +8,11 @@ flutter3.3.3 dart2.18
 
 ## 效果
 
-![home](./home.png){:width="393"}
+<img style="width:320px" src="./home.png" align=left />
 
-![me](./me.png)
+<img style="width:320px;" src="./me.png" />
 
-![profire](./profire.png)
+<img style="width:320px;" src="./profire.png" />
 
 ## android构建问题
 ```
