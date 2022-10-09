@@ -8,7 +8,7 @@ flutter3.3.3 dart2.18
 
 ## 效果
 
-![home](./home.png)
+![home](./home.png){:width="393"}
 
 ![me](./me.png)
 
