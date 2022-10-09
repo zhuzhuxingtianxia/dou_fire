@@ -78,12 +78,11 @@ class Factory {
       if (Config.isLogAction) {
         wms.add(LoggingMiddleware<AppState>(
             logger: getLogger('action'), level: Level.FINE));
-
-        wms.addAll([thunkMiddleware, getPersistor().createMiddleware()]);
-
-        _store = Store<AppState>(appReducer,
-            initialState: AppState(), middleware: wms);
       }
+      wms.addAll([thunkMiddleware, getPersistor().createMiddleware()]);
+
+      _store = Store<AppState>(appReducer,
+          initialState: AppState(), middleware: wms);
     }
     return _store!;
   }

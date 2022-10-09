@@ -132,7 +132,17 @@ allprojects{
 
 ## android报错
 ```
-A problem occurred evaluating project ':app'.
+Error: ADB exited with exit code 1
+Performing Streamed Install
+
+adb: failed to install /Users/jion/Desktop/GitHub/dou_fire/build/app/outputs/flutter-apk/app.apk: Failure [INSTALL_FAILED_INSUFFICIENT_STORAGE]
+Error launching application on sdk gphone64 x86 64.
 ```
-.gradle的版本 与 android->build.gradle文件中的配置`classpath 'com.android.tools.build:gradle:7.4'`版本不一致
+
+* Open Android Studio
+* Open Virtual Device Manager
+* 找到模拟器并进行编辑（虚拟设备配置）
+* Show Advanced Settings
+    向下滚动并找到内部存储（对我来说，默认为800MB）
+    设置emulator需要多少MB（我输入了3000MB，效果很好）
 
