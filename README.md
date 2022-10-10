@@ -4,7 +4,9 @@
 
 ## 环境
 
-flutter3.3.3 dart2.18
+Flutter: 3.3.3 
+
+Dart: 2.18
 
 ## 效果
 
