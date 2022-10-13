@@ -108,7 +108,8 @@ class _BodyState extends State<_Body> {
                       ),
                       Container(
                         margin: const EdgeInsets.only(
-                            top: DFTheme.marginSizeNormal),
+                          top: DFTheme.marginSizeNormal,
+                        ),
                         child: Row(
                           children: <Widget>[
                             Expanded(

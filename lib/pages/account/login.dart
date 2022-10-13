@@ -109,16 +109,19 @@ class _LoginState extends State<_Login> {
                           children: <Widget>[
                             Expanded(
                               child: ElevatedButton(
-                                // style: ButtonStyle(
-                                //   padding: MaterialStateProperty.all<
-                                //       EdgeInsetsGeometry>(
-                                //     const EdgeInsets.all(
-                                //         DFTheme.paddingSizeNormal),
-                                //   ),
-                                //   backgroundColor:
-                                //       MaterialStateProperty.all<Color>(
-                                //           Theme.of(context).primaryColorDark),
-                                // ),
+                                //样式方式1
+                                /*
+                                style: ButtonStyle(
+                                  padding: MaterialStateProperty.all<
+                                      EdgeInsetsGeometry>(
+                                    const EdgeInsets.all(
+                                        DFTheme.paddingSizeNormal),
+                                  ),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Theme.of(context).primaryColorDark),
+                                ),*/
+                                // 样式方式2
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
                                       Theme.of(context).primaryColorDark,
