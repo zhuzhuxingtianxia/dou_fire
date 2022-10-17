@@ -84,7 +84,9 @@ dev_dependencies:
 flutter_icons:
   android: 'launcher_icon'
   ios: true
-  image_path: 'assets/gzh.png'
+  image_path: 'assets/logo.png'
+  # image_path_android:
+  # image_path_ios:
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -98,6 +100,8 @@ flutter:
   assets:
     - assets/gzh.png
     - assets/cimaoshu.png
+    - assets/logo.png
+    - assets/logo_1024.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

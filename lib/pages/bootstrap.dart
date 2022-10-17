@@ -65,7 +65,7 @@ class _BodyState extends State<_Body> {
           const FractionallySizedBox(
             widthFactor: 0.3,
             child: Image(
-              image: AssetImage('assets/gzh.png'),
+              image: AssetImage('assets/logo_1024.png'),
             ),
           ),
           const Spacer(),
