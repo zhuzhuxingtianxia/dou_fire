@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:dou_fire/models/state/app.dart';
+import '../config.dart';
 
 // 启动页
 class BootstrapPage extends StatelessWidget {
@@ -29,7 +30,7 @@ class _BodyState extends State<_Body> {
   @override
   void initState() {
     super.initState();
-
+    print('启动耗时：${DateTime.now().millisecondsSinceEpoch - Config.launchTime}');
     _bootstrap();
   }
 

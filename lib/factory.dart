@@ -81,8 +81,11 @@ class Factory {
       }
       wms.addAll([thunkMiddleware, getPersistor().createMiddleware()]);
 
-      _store = Store<AppState>(appReducer,
-          initialState: AppState(), middleware: wms);
+      _store = Store<AppState>(
+        appReducer,
+        initialState: AppState(),
+        middleware: wms,
+      );
     }
     return _store!;
   }

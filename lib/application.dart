@@ -27,6 +27,7 @@ class Application extends StatelessWidget {
       child: MaterialApp(
         title: Config.packageInfo.appName,
         theme: DFTheme.theme,
+        initialRoute: '/',
         routes: {
           '/': (context) => const BootstrapPage(),
           '/login': (context) => const LoginPage(),

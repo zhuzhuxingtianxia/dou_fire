@@ -10,6 +10,7 @@ void main() async {
   Config.packageInfo = packageInfo;
   // ignore: avoid_print
   print(packageInfo);
+  Config.launchTime = DateTime.now().millisecondsSinceEpoch;
 
   runApp(Application());
 }

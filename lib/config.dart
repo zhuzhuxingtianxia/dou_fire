@@ -12,4 +12,6 @@ class Config {
   static var isLogAction = false;
   static var isLogApi = false;
   static var isMockApi = true;
+
+  static var launchTime = 0;
 }
