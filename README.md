@@ -192,4 +192,7 @@ Error launching application on sdk gphone64 x86 64.
         }
     }
  ```
- 9. 项目根目录下执行`flutter build apk`
+ 9. 项目根目录下执行
+	```
+	flutter build apk
+ 	```
